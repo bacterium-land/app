@@ -7,13 +7,15 @@ import { AppComponent } from './app.component';
 import { BoardComponent } from './board/board.component';
 // import { HexaCell } from './cell/hexa-cell/hexa-cell.component';
 import { HexaBoardComponent } from './board/hexa-board/hexa-board.component';
+import { MainComponent } from './main/main.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     BoardComponent,
     // HexaCell,
-    HexaBoardComponent
+    HexaBoardComponent,
+    MainComponent
   ],
   imports: [
     BrowserModule,
