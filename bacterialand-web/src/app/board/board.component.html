@@ -1,0 +1,11 @@
+<div class='board'>
+  <table class="is-bordered">
+      <tr *ngFor="let row of tiles; let j = index">
+        <td *ngFor="let col of row; let k = index"
+        (click) = "move(j,k)"
+        [style.background-color] = "col.filled ? 'black' : 'transparent'"
+        class="grid-tile" id="t{{j}}{{k}}">
+      </td>
+    </tr>
+  </table>
+</div>
