@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import {webSocket, WebSocketSubject} from 'rxjs/webSocket';
+import { LocalStorageService } from 'src/services/local-storage.service';
 
 @Component({
   selector: 'app-board',
@@ -14,12 +15,13 @@ export class BoardComponent implements OnInit {
 
   myWebSocket: WebSocketSubject<any> = webSocket('ws://localhost:4040');
 
-  constructor() {
+  constructor(private localStorageService: LocalStorageService) {
     this.myWebSocket.asObservable().subscribe(data => console.dir(data));
   }
 
   ngOnInit(): void {
     console.dir('ngOnInit');
+    console.dir(this.localStorageService.getUserId());
     console.dir(this.rows);
     for (let i = 0; i < this.rows; i++) {
       const row = [];
