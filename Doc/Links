@@ -1,0 +1,43 @@
+# 3D library to be sued
+https://github.com/gpuweb/gpuweb
+
+# Build the arquetype
+https://start.spring.io
+
+#Maven
+https://mvnrepository.com
+
+#Intellij
+https://www.jetbrains.com/es-es/idea/download/other.html
+
+# Angular set up
+Creating an Angular6 Project Using Angular CLI
+If the angular-cli is not already installed, install it using the following command from the terminal.
+
+npm install -g @angular/cli
+
+Generate an Angular 6 project using the angular-cli from the tutorial-web/src/main/web directory.
+Navigate to the directory tutorial-web/src/main in the terminal and run the following command:
+
+ng new -skip-git -directory web np-app
+
+In the above command, we are skipping the git repository as we are not running the command from the root directory.
+ We have specified that the output directory as web and given the application the name np-app.
+
+Enabling WebGL On Chrome
+ https://help.crossbrowsertesting.com/live-testing/faq/enabling-webgl-chrome/
+
+Hexa with babylon
+
+demonixis.net/creer-une-grille-hexagonale-en-3d-avec-babylon-js/
+
+# Trello
+https://trello.com/b/3W3eRYaj/bactery-land
+
+Spring Mongodb Doc
+https://github.com/spring-projects/spring-data-book/tree/master/mongodb
+
+SwaggerSocket
+https://github.com/swagger-api/swagger-socket
+
+
