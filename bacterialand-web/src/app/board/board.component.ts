@@ -7,8 +7,8 @@ import {webSocket, WebSocketSubject} from 'rxjs/webSocket';
   styleUrls: ['./board.component.css']
 })
 export class BoardComponent implements OnInit {
-  @Input() rows: number;
-  @Input() cols: number;
+  rows: number = 10;
+  cols: number = 10;
   tiles = [];
   gameId = '123fab';
 
