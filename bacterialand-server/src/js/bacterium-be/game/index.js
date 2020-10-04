@@ -51,6 +51,29 @@ function makeMove() {
     // comprobamos checks
     // updateamos
     // devolver estado
+    /* const result = await db.getCollection('game').findOneAndUpdate({
+        _id: ObjectId(req.body.gameId),
+        turn: req.body.turn,
+        [req.body.turn]: {
+            $nin: [req.body.move]
+        },
+        "8c6c4614-d6a8-c8c2-3dd6-451d397597e0.16": {$exists: false }
+    },
+    {
+        "$set":{
+            turn: "8c6c4614-d6a8-c8c2-3dd6-451d397597e0"
+        }
+    },
+    {
+        returnDocument: true
+    }) */
+    if (result) {
+        /* 
+        context.res = {
+        // status: 200, /* Defaults to 200
+        body: JSON.stringify({'game-id': insertResult.insertedId.toString()})
+    */
+    }
 }
 
 async function getGame(context, req) {
