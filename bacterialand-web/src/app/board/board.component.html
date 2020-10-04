@@ -3,7 +3,7 @@
     <tr *ngFor="let row of tiles; let j = index">
       <td *ngFor="let col of row; let k = index"
           (click)="move(j,k,movNum)"
-          [style.background-color]="col.filled == NO_PLAYER ? 'transparent' : (col.filled == 1 ? 'red' : 'blue')"
+          [style.background-color]="col == NO_PLAYER ? 'transparent' : (col == 1 ? 'red' : 'blue')"
           class="grid-tile" id="t{{j}}{{k}}">
       </td>
     </tr>

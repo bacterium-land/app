@@ -8,8 +8,8 @@ import { LocalStorageService } from 'src/services/local-storage.service';
   styleUrls: ['./board.component.css']
 })
 export class BoardComponent implements OnInit {
-  @Input() rows: number;
-  @Input() cols: number;
+  @Input() rows: number = 4;
+  @Input() cols: number = 4;
   @Input() movNum: number;
   @Input() turn: number;
   tiles = [];
@@ -18,10 +18,10 @@ export class BoardComponent implements OnInit {
   NO_PLAYER = 0;
   storeRow = [];
 
-  myWebSocket: WebSocketSubject<any> = webSocket('ws://localhost:4040');
+  // myWebSocket: WebSocketSubject<any> = webSocket('ws://localhost:4040');
 
   constructor(private localStorageService: LocalStorageService) {
-    this.myWebSocket.asObservable().subscribe(data => console.dir(data));
+    // this.myWebSocket.asObservable().subscribe(data => console.dir(data));
   }
 
   ngOnInit(): void {
@@ -60,9 +60,10 @@ export class BoardComponent implements OnInit {
       for (let j = 0; j < this.cols; j++) {
         this.writeCell(dbMock.player1, dbMock.player2, i, j);
       }
+      // [].concat(this.storeRow)
+      this.tiles.push([...this.storeRow]);
+      this.storeRow = [];
     }
-
-    this.tiles.push(this.storeRow);
     console.dir(this.tiles);
   }
 
@@ -76,10 +77,10 @@ export class BoardComponent implements OnInit {
     function evaluateCandidate(playerParam: string[]) {
       if (playerParam != null) {
         playerParam.forEach((value, index) => {//Adding the player info
-            let parts = value.split('');
+            let parts = value.split(','); // 0,1,2 === [0,1,2]
             let partsX: number = +parts[0];
-            let partsY: number = +parts[2];
-            let owner: number = +parts[4];
+            let partsY: number = +parts[1];
+            let owner: number = +parts[2];
             if (partsX == i && partsY == j) {
               retorno = owner;
             }
@@ -127,7 +128,7 @@ export class BoardComponent implements OnInit {
     this.turn = updateTurn(turn)
 
     // add movNum into data of this call
-    this.myWebSocket.next({move: [row, col], gameId: this.gameId, pPlayerName: this.tiles[row][col].filled});
+    // this.myWebSocket.next({move: [row, col], gameId: this.gameId, pPlayerName: this.tiles[row][col].filled});
   }
 
   //endregion
