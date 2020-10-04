@@ -1,0 +1,19 @@
+Debug entry point
+board.component.ts
+
+Adding Intellij Debug into intellij
+https://chrome.google.com/webstore/detail/jetbrains-ide-support/hmhgeddbohgjknpmjagkdomcpobmllji
+
+Updating in the terminal of project
+D:\Source\BateriaLand\app\bacterialand-web>ng add build
+Installing packages for tooling via npm.
+
+       If error : The package that you are trying to add does not support schematics
+       then solution
+
+        npm i @angular/cdk
+        npm i @angular/material
+        ng add @angular/material
+
+bacterialand-web/src/app/app.component.spec.ts
+
