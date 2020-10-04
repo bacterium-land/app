@@ -15,13 +15,13 @@ import { MainComponent } from './main/main.component';
     AppComponent,
     BoardComponent,
     // TODO HexaCell, improvement line
-    HexaBoardComponent
+    HexaBoardComponent,
     MainComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
     HttpClientModule
   ],
   providers: [],
