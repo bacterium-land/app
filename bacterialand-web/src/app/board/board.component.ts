@@ -1,6 +1,10 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {webSocket, WebSocketSubject} from 'rxjs/webSocket';
 import { LocalStorageService } from 'src/services/local-storage.service';
+import { ActivatedRoute } from '@angular/router';
+import { switchMap, map, filter } from 'rxjs/operators';
+import { GameService } from 'src/services/game.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-board',
@@ -20,29 +24,32 @@ export class BoardComponent implements OnInit {
 
   // myWebSocket: WebSocketSubject<any> = webSocket('ws://localhost:4040');
 
-  constructor(private localStorageService: LocalStorageService) {
+  constructor(private localStorageService: LocalStorageService,
+    private gameService: GameService,
+    private activatedRoute: ActivatedRoute) {
     // this.myWebSocket.asObservable().subscribe(data => console.dir(data));
   }
 
   ngOnInit(): void {
-    let dbMock = {
-      "_id": {"$oid": "5f784e93ebafec6b9bec55f5"},
-      "turn": "1",
-      "player1": ["0,0,1"],
-      "player2": ["0,1,2"]
-    };
-
-    console.dir('ngOnInit');
-    console.dir(this.localStorageService.getUserId());
-    console.dir(this.rows);
-    // service.getGame
-    // this.boardSetUp();
-    this.boardUpdate(dbMock);
+    this.activatedRoute.paramMap.pipe(
+      map(params => {
+      const id = params.get('id');
+      console.dir(params);
+      return params.get('id') || '';
+      }),
+      filter(gameId => !!gameId),
+      switchMap((gameId: string): Observable<any> => {
+        return this.gameService.getGameById(gameId);
+      })
+    )
+    .subscribe(gameState => {
+      this.boardUpdate(gameState);
+    });
   }
 
   //#region BOARD OPERATIONS
   // Reset of the board
-  boardSetUp() {
+  /* boardSetUp() {
     for (let i = 0; i < this.rows; i++) {
       for (let j = 0; j < this.cols; j++) {
         this.storeRow.push({
@@ -52,7 +59,7 @@ export class BoardComponent implements OnInit {
       this.tiles.push(this.storeRow);
       console.dir(this.storeRow);
     }
-  }
+  } */
 
   // Update of the board
   boardUpdate(dbMock: { player1: string[]; player2: string[]; _id: { $oid: string }; turn: string }) {
