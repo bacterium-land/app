@@ -15,7 +15,7 @@ import java.util.List;
 @ExtendWith(SpringExtension.class)
 //@ContextConfiguration(classes = {SpringTestConfiguration.class})
 @SpringBootTest
-class BacterialandServerApplicationTests {
+class BacteriumlandServerApplicationTests {
 
     private ApplicationConfig repo = new ApplicationConfig();
 
