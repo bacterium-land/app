@@ -22,22 +22,20 @@ export class BoardComponent implements OnInit {
   NO_PLAYER = 0;
   storeRow = [];
 
-  // myWebSocket: WebSocketSubject<any> = webSocket('ws://localhost:4040');
-
   constructor(private localStorageService: LocalStorageService,
     private gameService: GameService,
     private activatedRoute: ActivatedRoute) {
-    // this.myWebSocket.asObservable().subscribe(data => console.dir(data));
+    
   }
 
   ngOnInit(): void {
     this.activatedRoute.paramMap.pipe(
+      filter(params => !!params.get('id')),
       map(params => {
-      const id = params.get('id');
-      console.dir(params);
-      return params.get('id') || '';
+        const id = params.get('id');
+        console.dir(params);
+        return params.get('id') || '';
       }),
-      filter(gameId => !!gameId),
       switchMap((gameId: string): Observable<any> => {
         return this.gameService.getGameById(gameId);
       })
