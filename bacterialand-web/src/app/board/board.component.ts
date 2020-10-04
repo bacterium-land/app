@@ -1,5 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {webSocket, WebSocketSubject} from 'rxjs/webSocket';
+import { LocalStorageService } from 'src/services/local-storage.service';
 
 @Component({
   selector: 'app-board',
@@ -19,7 +20,7 @@ export class BoardComponent implements OnInit {
 
   myWebSocket: WebSocketSubject<any> = webSocket('ws://localhost:4040');
 
-  constructor() {
+  constructor(private localStorageService: LocalStorageService) {
     this.myWebSocket.asObservable().subscribe(data => console.dir(data));
   }
 
@@ -32,6 +33,7 @@ export class BoardComponent implements OnInit {
     };
 
     console.dir('ngOnInit');
+    console.dir(this.localStorageService.getUserId());
     console.dir(this.rows);
     // service.getGame
     // this.boardSetUp();
