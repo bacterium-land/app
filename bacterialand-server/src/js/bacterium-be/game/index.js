@@ -13,6 +13,16 @@ module.exports = async function (context, req) {
     console.dir(req)
     console.dir(context)
     context.log('JavaScript HTTP trigger function processed a request.');
+    /* connectToMongo()
+    .then(connectionToMongo => {
+        getGame(context, req)
+        .then(() => {
+            //..... 
+        })
+    })
+    .catch(err => {
+
+    }) */
     await connectToMongo()
     console.dir('connected to DB');
     if (req.method === 'GET') {
@@ -27,6 +37,20 @@ module.exports = async function (context, req) {
             body: 'Invalid method'
         };
     }
+}
+
+function makeMove() {
+    // req.body = {gameid=123, player=p1, move=0,0,1} = {...state}
+    // push al array, del gameid, para ese player
+        // Que no sea repetido
+        // Comprobar limites del tablero
+        // Que sea su turno
+        // Cambiar turno
+        // Anadir move al array
+    // recuperar estado del juego
+    // comprobamos checks
+    // updateamos
+    // devolver estado
 }
 
 async function getGame(context, req) {
