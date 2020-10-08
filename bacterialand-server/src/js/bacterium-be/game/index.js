@@ -6,7 +6,7 @@ const ObjectId = require('mongodb').ObjectID
 const url = process.env.URI_DB || ''
 
 // Create a new MongoClient
-const client = new MongoClient(url, { useNewUrlParser: true  });
+const client = new MongoClient(url, {useNewUrlParser: true});
 let mongoConnection = null;
 
 module.exports = async function (context, req) {
@@ -27,15 +27,11 @@ module.exports = async function (context, req) {
     console.dir('connected to DB');
     if (req.method === 'GET') {
         await getGame(context, req);
-    }
-    else if (req.method === 'POST'){
+    } else if (req.method === 'POST') {
         await createGame(context, req);
-    }
-    else if (req.method === 'PUSH'){
+    } else if (req.method === 'PUSH') {
         await updateGame(context, req);
-    }
-
-    else {
+    } else {
         context.res = {
             status: 404,
             body: 'Invalid method'
@@ -43,40 +39,36 @@ module.exports = async function (context, req) {
     }
 }
 
-function makeMove() {
-    // req.body = {gameid=123, player=p1, move=0,0,1} = {...state}
-    // push al array, del gameid, para ese player
-        // Que no sea repetido
-        // Comprobar limites del tablero
-        // Que sea su turno
-        // Cambiar turno
-        // Anadir move al array
-    // recuperar estado del juego
-    // comprobamos checks
-    // updateamos
-    // devolver estado
-    /* const result = await db.getCollection('game').findOneAndUpdate({
-        _id: ObjectId(req.body.gameId),
-        turn: req.body.turn,
-        [req.body.turn]: {
-            $nin: [req.body.move]
-        },
-        "8c6c4614-d6a8-c8c2-3dd6-451d397597e0.16": {$exists: false }
-    },
-    {
-        "$set":{
-            turn: "8c6c4614-d6a8-c8c2-3dd6-451d397597e0"
+/**
+ * Funtions of that does part of the validatio of update board
+ *  *  @see  updateGame
+ * */
+function makeMove(context, req) {
+    /* Mock
+     * req.body = {gameid=123, player=p1, move=0,0,1} = {...state}
+     * push al array, del gameid, para ese player */
+
+    // 1 Que no sea repetido
+    // 2 Comprobar limites del tablero
+    // 3 Que sea su turno
+    // Si se cumplen todas devuelve true
+
+
+    // Doesn't exists
+    let existQuery = getGame(req);
+    if (existQuery == null) {
+        // Not duplicated
+
+        let dims = req.body.move;
+        //TODO to add the data in the model
+        //Check of size constraints this is just test I know it should be done by the query
+        if (dims[0] >= 0 && dims[0] < req.body.board.size.x) {
+            if (dims[1] >= 0 && dims[1] < req.body.board.size.y) {
+                if (req.body.turn == existQuery.turn) {
+
+                }
+            }
         }
-    },
-    {
-        returnDocument: true
-    }) */
-    if (result) {
-        /* 
-        context.res = {
-        // status: 200, /* Defaults to 200
-        body: JSON.stringify({'game-id': insertResult.insertedId.toString()})
-    */
     }
 }
 
@@ -95,8 +87,8 @@ async function createGame(context, req) {
     const collection = await client.db('bacterium-store').collection('game');
     const insertResult = await collection.insertOne({
         turn: req.body.player_id,
-        player1:[],
-        player2:[]
+        player1: [],
+        player2: []
     })
     context.res = {
         // status: 200, /* Defaults to 200 */
@@ -105,16 +97,69 @@ async function createGame(context, req) {
 }
 
 
+/**
+ * All Conditions
+ *  Condiciones 1, 2, 3
+ *  1 Que no sea repetido
+ *  2 Comprobar límites del tablero
+ *  3 Que sea su turno
+ *  @see  makeMove
+ *
+ *  Si se cumplen todas devuelve true
+ *
+ *  In this method
+ *  4 Cambiar turno
+ *  5 Añadir move al array
+ *  6 recuperar estado del juego
+ *  7 comprobamos checks
+ *  8 updateamos
+ *  9 devolver estado
+ *
+ * @param context
+ * @param req
+ * @returns {Promise<void>}
+ */
 async function updateGame(context, req) {
-    const collection = await client.db('bacterium-store').collection('game');
-    const insertResult = await collection.insertOne({
+
+    if (makeMove(context, req)) {
+        /*
+          4 Cambiar turno
+          5 Añadir move al array
+          6 recuperar estado del juego
+          7 comprobamos checks
+          8 updateamos
+          9 devolver estado */
+
+        let parser = ''.concat(turn, '16');
+        const collection = await client.db('bacterium-store').collection('game');
+        collection.findOneAndUpdate({
+                _id: ObjectId(req.body.gameId),
+            // How add the 5 6 7 an seven checks?
+                turn: req.body.turn,
+                turn: {
+                    $nin: req.body.move
+                },
+                parser: {$exists: false}
+            },
+            {
+                "$set": {
+
+                    turn: req.body.turn
+                }
+            },
+            {
+                returnDocument: true
+            })
+    }
+
+    const updateResult = await Collection.prototype.updateOne({
         turn: req.body.player_id,
-        player1:[],
-        player2:[]
+        player1: [],
+        player2: []
     })
     context.res = {
         // status: 200, /* Defaults to 200 */
-        body: JSON.stringify({'game-id': insertResult.insertedId.toString()})
+        body: JSON.stringify({'game-id': updateResult.status.toString()})
     };
 }
 
