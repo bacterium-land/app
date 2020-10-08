@@ -31,6 +31,10 @@ module.exports = async function (context, req) {
     else if (req.method === 'POST'){
         await createGame(context, req);
     }
+    else if (req.method === 'PUSH'){
+        await updateGame(context, req);
+    }
+
     else {
         context.res = {
             status: 404,
@@ -91,7 +95,7 @@ async function createGame(context, req) {
     const collection = await client.db('bacterium-store').collection('game');
     const insertResult = await collection.insertOne({
         turn: req.body.player_id,
-        player1: [],
+        player1:[],
         player2:[]
     })
     context.res = {
@@ -99,6 +103,21 @@ async function createGame(context, req) {
         body: JSON.stringify({'game-id': insertResult.insertedId.toString()})
     };
 }
+
+
+async function updateGame(context, req) {
+    const collection = await client.db('bacterium-store').collection('game');
+    const insertResult = await collection.insertOne({
+        turn: req.body.player_id,
+        player1:[],
+        player2:[]
+    })
+    context.res = {
+        // status: 200, /* Defaults to 200 */
+        body: JSON.stringify({'game-id': insertResult.insertedId.toString()})
+    };
+}
+
 
 async function connectToMongo() {
     if (!mongoConnection) mongoConnection = await client.connect()
