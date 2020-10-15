@@ -4,9 +4,10 @@ board.component.ts
 Adding Intellij Debug into intellij
 https://chrome.google.com/webstore/detail/jetbrains-ide-support/hmhgeddbohgjknpmjagkdomcpobmllji
 
-Updating in the terminal of project
+**************  Updating in the terminal of project
 D:\Source\BateriaLand\app\bacterialand-web>ng add build
-Installing packages for tooling via npm.
+
+**************  Installing packages for tooling via npm.
 
        If error : The package that you are trying to add does not support schematics
        then solution
@@ -15,5 +16,30 @@ Installing packages for tooling via npm.
         npm i @angular/material
         ng add @angular/material
 
-bacterialand-web/src/app/app.component.spec.ts
+**************  bacterialand-web/src/app/app.component.spec.ts
 
+**************  URL TO STAR WITH WS
+http://localhost:4200/game/5f79a5635f2c3600376d36d0
+
+#Realisation method PUSH
+**************  Installation mongo DB
+mongo compass:  in
+https://www.restapitutorial.com
+
+
+**************  Init password
+    sirgot
+    123Abc
+
+**************  Find and updateDoc
+https://docs.mongodb.com/realm/mongodb/actions/collection.findOneAndUpdate/
+
+**************  Intellij with MINTY
+https://blog.codeleak.pl/2014/02/git-bash-in-intellij-idea-13-on-windows.html
+
+iniciar el backJosep
+uri_db=mongodb+srv://jarpi:123abc@cluster0.ymqat.mongodb.net/bacterium-store func start
+
+curl http://127.0.0.1:7071/api/game\?gameId\=5f79a5635f2c3600376d36d0
+
+curl -d '{"player_id":"123"}' -H 'Content-Type: application/json' https://bacterium-get-game.azurewebsites.net/api/game\?code\=AR0TI8kVnYzrILjYiBfStQy6oG0//zIcJk5Cd7oVdhMnt8a1nDUgWQ\=\=
