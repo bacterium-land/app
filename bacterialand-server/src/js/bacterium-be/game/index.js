@@ -39,6 +39,7 @@ module.exports = async function (context, req) {
     }
 }
 
+
 /**
  * Funtions of that does part of the validatio of update board
  *  *  @see  updateGame
